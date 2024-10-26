@@ -3,10 +3,11 @@ import React from 'react';
 import Avatar from '@mui/material/Avatar';
 
 import { ProfileHeaderWrap } from './profileHeaderStyle';
+import { IPost } from '@/utils/types';
 
 type PropTypes = {
   photo?: string;
-  title: string;
+  title: IPost;
 };
 
 const ProfileHeader = ({ photo, title }: PropTypes) => {
@@ -19,8 +20,8 @@ const ProfileHeader = ({ photo, title }: PropTypes) => {
         sx={{ width: 35, height: 35 }}
       />
       <div>
-        <h1>{title}</h1>
-        <span>Posted at</span>
+        <h1>{title.userName}</h1>
+        <span>{String(title.postedAt)}</span>
       </div>
     </ProfileHeaderWrap>
   );
