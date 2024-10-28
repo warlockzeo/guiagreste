@@ -7,6 +7,7 @@ import Login from '@mui/icons-material/Login';
 import logo from '../../assets/logo.svg';
 import { HeaderWrap, Buttons } from './headerStyle';
 import AvatarMenu from '../AvatarMenu/AvatarMenu';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [isLogged, setIsLogged] = React.useState<Boolean>(false);
@@ -16,17 +17,13 @@ const Header = () => {
 
   return (
     <HeaderWrap>
-      <img src={logo} className='App-logo' alt='logo' />
+      <Link to='/'>
+        <img src={logo} className='App-logo' alt='logo' />
+      </Link>
       <Buttons>
-        {isLogged ? (
-          <>
-            <Search fontSize='large' />
-            <Message fontSize='large' />
-            <AvatarMenu onLogout={handleLogout} />
-          </>
-        ) : (
-          <Login fontSize='large' onClick={handleLogin} />
-        )}
+        <Search fontSize='large' />
+        <Message fontSize='large' />
+        <AvatarMenu onLogout={handleLogout} />
       </Buttons>
     </HeaderWrap>
   );
