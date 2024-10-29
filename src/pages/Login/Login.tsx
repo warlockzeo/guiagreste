@@ -16,6 +16,11 @@ const schema = z.object({
   password: z.string().min(8, 'Precisa informar um password'),
 });
 
+type LoginArguments = {
+  login: string;
+  password: string;
+};
+
 const Login = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
@@ -33,13 +38,7 @@ const Login = () => {
     },
   });
 
-  const onSubmit = async ({
-    login,
-    password,
-  }: {
-    login: string;
-    password: string;
-  }) => {
+  const onSubmit = async ({ login, password }: LoginArguments) => {
     setIsLoading(true);
     await submitLogin({ login, password }).then((resp) => {
       if (resp?.error) {
@@ -50,8 +49,14 @@ const Login = () => {
     });
   };
 
-  const onChangeField = (e: any) => {
-    setError(e.target.name, { message: '' });
+  const onChangeField = (
+    e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLInputElement>
+  ) => {
+    const { name } = e.currentTarget;
+    console.log(name);
+    if (name === 'login' || name === 'password') {
+      setError(name, { message: '' });
+    }
   };
 
   return (
@@ -60,7 +65,8 @@ const Login = () => {
         <Loader />
       ) : (
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className='flex flex-column'>
+          <h1 className='text-2xl text-red'>teste</h1>
+          <div className='flex flex-column '>
             <input
               {...register('login')}
               type='text'
