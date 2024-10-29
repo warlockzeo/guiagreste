@@ -1,19 +1,22 @@
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Search from '@mui/icons-material/Search';
 import Message from '@mui/icons-material/Message';
-import Login from '@mui/icons-material/Login';
 
 import logo from '../../assets/logo.svg';
 import { HeaderWrap, Buttons } from './headerStyle';
 import AvatarMenu from '../AvatarMenu/AvatarMenu';
-import { Link } from 'react-router-dom';
+
+import { logout } from '@/utils/JWTAuth';
 
 const Header = () => {
-  const [isLogged, setIsLogged] = React.useState<Boolean>(false);
+  const navigate = useNavigate();
 
-  const handleLogin = () => setIsLogged(true);
-  const handleLogout = () => setIsLogged(false);
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
 
   return (
     <HeaderWrap>

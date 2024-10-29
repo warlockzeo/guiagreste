@@ -1,19 +1,19 @@
 /* eslint-disable eqeqeq */
 import axios from 'axios';
 
-const login = async (data: any) => {
+const login = async (data: { login: string; password: string }) => {
   const LOGIN_ENDPOINT = `/login`;
   try {
-    const response = await axios({
-      method: 'post',
-      responseType: 'json',
-      url: LOGIN_ENDPOINT,
-      data: JSON.stringify(data),
-    });
+    // const response = await axios({
+    //   method: 'post',
+    //   responseType: 'json',
+    //   url: LOGIN_ENDPOINT,
+    //   data: JSON.stringify(data),
+    // });
 
-    if (response.status == 200) {
-      sessionStorage.setItem('access_token', 'OK');
-    }
+    // if (response.status == 200) {
+    sessionStorage.setItem('access_token', 'OK');
+    // }
   } catch (e) {
     return { error: 'Usuario ou senha inválidos' };
   }
@@ -22,8 +22,6 @@ const login = async (data: any) => {
 const logout = () => {
   sessionStorage.removeItem('access_token');
   sessionStorage.removeItem('expire_at');
-
-  window.location.href = '/login';
 };
 
 const userAuth = sessionStorage.getItem('access_token');
