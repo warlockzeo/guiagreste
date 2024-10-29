@@ -65,7 +65,6 @@ const Login = () => {
         <Loader />
       ) : (
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h1 className='text-2xl text-red'>teste</h1>
           <div className='flex flex-column '>
             <input
               {...register('login')}
