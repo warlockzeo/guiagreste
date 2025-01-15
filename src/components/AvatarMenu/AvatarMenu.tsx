@@ -29,10 +29,10 @@ const AvatarMenu = ({ photo, onLogout }: PropTypes) => {
     <>
       <Tooltip title='Account settings'>
         <Avatar
+          className='w-8 h-8 cursor-pointer'
           src={photo}
           alt='User avatar'
           onClick={handleClick}
-          sx={{ width: 35, height: 35 }}
         />
       </Tooltip>
 

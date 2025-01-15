@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Post from '@/components/Post';
+import { Post } from '@/components';
 
 import { HomeWrap } from './HomeStyle';
 

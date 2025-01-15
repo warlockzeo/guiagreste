@@ -9,11 +9,11 @@ import { Snackbar } from '@mui/material';
 
 import logo from '../../assets/logo.svg';
 import { login as submitLogin } from '@/utils/JWTAuth';
-import Loader from '@/components/Loader/Loader';
+import { Loader } from '@/components';
 
 const schema = z.object({
   login: z.string().min(5, 'Precisa informar um login'),
-  password: z.string().min(8, 'Precisa informar um password'),
+  password: z.string().min(2, 'Precisa informar um password'),
 });
 
 type LoginArguments = {
@@ -40,6 +40,7 @@ const Login = () => {
 
   const onSubmit = async ({ login, password }: LoginArguments) => {
     setIsLoading(true);
+
     await submitLogin({ login, password }).then((resp) => {
       if (resp?.error) {
         setIsLoading(false);
@@ -53,7 +54,7 @@ const Login = () => {
     e: React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLInputElement>
   ) => {
     const { name } = e.currentTarget;
-    console.log(name);
+
     if (name === 'login' || name === 'password') {
       setError(name, { message: '' });
     }
@@ -64,29 +65,41 @@ const Login = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className='flex flex-column '>
-            <input
-              {...register('login')}
-              type='text'
-              name='login'
-              placeholder='Login'
-              onChange={onChangeField}
-              onClick={onChangeField}
-            />
-            {errors.login && <span>{errors.login.message}</span>}
-
-            <input
-              {...register('password')}
-              type='password'
-              name='password'
-              placeholder='password'
-              onChange={onChangeField}
-              onClick={onChangeField}
-            />
-            {errors.password && <span>{errors.password.message}</span>}
-
-            <button type='submit'>Login</button>
+        <form onSubmit={handleSubmit(onSubmit)} className=''>
+          <div className='flex flex-col justify-center items-center w-full h-screen'>
+            <div className=' flex gap-x-3'>
+              <div className='flex flex-col'>
+                <input
+                  {...register('login')}
+                  type='text'
+                  name='login'
+                  placeholder='Login'
+                  onChange={onChangeField}
+                  onClick={onChangeField}
+                  className='p-2'
+                />
+                {errors.login && (
+                  <span className='text-red-500'>{errors.login.message}</span>
+                )}
+              </div>
+              <div className='flex flex-col'>
+                <input
+                  {...register('password')}
+                  type='password'
+                  name='password'
+                  placeholder='password'
+                  onChange={onChangeField}
+                  onClick={onChangeField}
+                  className='p-2'
+                />
+                {errors.password && (
+                  <span className='text-red-500'>
+                    {errors.password.message}
+                  </span>
+                )}
+              </div>
+              <button type='submit'>Login</button>
+            </div>
           </div>
         </form>
       )}
@@ -97,7 +110,7 @@ const Login = () => {
           Boolean(errors.login?.message) || Boolean(errors.password?.message)
         }
         autoHideDuration={6000}
-        message={errors.login?.message || errors.password?.message}
+        message='Login e/ou password inválidos'
       />
     </>
   );

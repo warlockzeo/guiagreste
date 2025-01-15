@@ -12,10 +12,14 @@ const login = async (data: { login: string; password: string }) => {
     // });
 
     // if (response.status == 200) {
+
     sessionStorage.setItem('access_token', 'OK');
+
     // }
   } catch (e) {
-    return { error: 'Usuario ou senha inválidos' };
+    return {
+      error: `Usuario ou senha inválidos ${data.login} - ${data.password}`,
+    };
   }
 };
 
@@ -26,8 +30,6 @@ const logout = () => {
 
 const userAuth = sessionStorage.getItem('access_token');
 
-const isAuthenticated = () => !!userAuth;
+const isLogged = userAuth === 'OK';
 
-const isLogged = !!sessionStorage.getItem('access_token');
-
-export { login, logout, isAuthenticated, isLogged, userAuth };
+export { login, logout, isLogged, userAuth };
